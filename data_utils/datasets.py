@@ -27,6 +27,7 @@ DSET_NAME_TO_OBJECT = {
 
 def get_data_loader(params, paths, distributed, split='train', rank=0, train_offset=0):
     # paths, types, include_string = zip(*paths)
+    
     dataset = MixedDataset(paths, n_steps=params.n_steps, train_val_test=params.train_val_test, split=split,
                             tie_fields=params.tie_fields, use_all_fields=params.use_all_fields, enforce_max_steps=params.enforce_max_steps, 
                             train_offset=train_offset)
@@ -57,6 +58,8 @@ class MixedDataset(Dataset):
         super().__init__()
         # Global dicts used by Mixed DSET. 
         self.train_offset = train_offset
+        print(len(path_list))
+        print(path_list[0])
         self.path_list, self.type_list, self.include_string = zip(*path_list)
         self.tie_fields = tie_fields
         self.extended_names = extended_names
@@ -67,6 +70,9 @@ class MixedDataset(Dataset):
         self.use_all_fields = use_all_fields
 
         for dset, path, include_string in zip(self.type_list, self.path_list, self.include_string):
+            path = os.path.expanduser(path) 
+            path = os.path.abspath(path)
+            print(path)
             subdset = DSET_NAME_TO_OBJECT[dset](path, include_string, n_steps=n_steps,
                                                  dt=dt, train_val_test=train_val_test, split=split)
             # Check to make sure our dataset actually exists with these settings

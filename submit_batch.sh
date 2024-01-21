@@ -28,7 +28,7 @@ module load hdf5/mpi-1.12.2
 module load cuda/12.1 cudnn/cuda12-8.9.0 nccl/cuda12.1-2.18.1 
 
 # conda activate pdebench
-source $VENVDIR/pdebench_venv/bin/activate
+source ~/multiple_physics_pretraining/bin/activate
 set -x
 
 srun python `which torchrun` \

@@ -70,6 +70,7 @@ class Trainer:
         self.iters = 0
         self.initialize_data(self.params)
         print(f"Initializing model on rank {self.global_rank}")
+        print(f"Device is {self.device}")
         self.initialize_model(self.params)
         self.initialize_optimizer(self.params)
         if params.resuming:
@@ -105,7 +106,7 @@ class Trainer:
 
     def initialize_model(self, params):
         if self.params.model_type == 'avit':
-            self.model = build_avit(params).to(device)
+            self.model = build_avit(params).to(self.device)
         
         if self.params.compile:
             print('WARNING: BFLOAT NOT SUPPORTED IN SOME COMPILE OPS SO SWITCHING TO FLOAT16')
@@ -481,7 +482,8 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("--run_name", default='00', type=str)
     parser.add_argument("--use_ddp", action='store_true', help='Use distributed data parallel')
-    parser.add_argument("--yaml_config", default='./config/multi_ds.yaml', type=str)
+    #parser.add_argument("--yaml_config", default='./config/multi_ds.yaml', type=str)
+    parser.add_argument("--yaml_config", default='./config/mpp_avit_ti_config.yaml', type=str)
     parser.add_argument("--config", default='basic_config', type=str)
     parser.add_argument("--sweep_id", default=None, type=str, help='sweep config from ./configs/sweeps.yaml')
     args = parser.parse_args()
@@ -504,7 +506,8 @@ if __name__ == '__main__':
         expDir = os.path.join(params.exp_dir, args.sweep_id, args.config, str(args.run_name), jid)
     else:
         expDir = os.path.join(params.exp_dir, args.config, str(args.run_name))
-
+    
+    expDir = os.path.expanduser(expDir) 
     params['old_exp_dir'] = expDir # I dont remember what this was for but not removing it yet
     params['experiment_dir'] = os.path.abspath(expDir)
     params['checkpoint_path'] = os.path.join(expDir, 'training_checkpoints/ckpt.tar')

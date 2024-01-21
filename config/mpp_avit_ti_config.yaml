@@ -54,20 +54,20 @@ basic_config: &basic_config
   extended_names: !!bool False # Whether to use extended names - not currently implemented
   embedding_offset: 0  # Use when adding extra finetuning fields
   train_data_paths: [
-              ['~/PDEBench/2D/shallow-water', 'swe', ''],
-              ['~/PDEBench/2D/NS_incom', 'incompNS', ''],
-              ['~/PDEBench/2D/CFD/2D_Train_Rand', compNS, '128'],
-               ['~/PDEBench/2D/CFD/2D_Train_Rand', compNS, '512'],
-              ['~/PDEBench/2D/CFD/2D_Train_Turb', compNS, ''],
-              ['~/PDEBench/2D/diffusion-reaction', 'diffre2d', ''],
+              ['~/PDEBench/data/2D/shallow-water', 'swe', ''],
+              ['~/PDEBench/data/2D/NS_incom', 'incompNS', ''],
+              ['~/PDEBench/data/2D/CFD/2D_Train_Rand', compNS, '128'],
+               ['~/PDEBench/data/2D/CFD/2D_Train_Rand', compNS, '512'],
+              ['~/PDEBench/data/2D/CFD/2D_Train_Turb', compNS, ''],
+              ['~/PDEBench/data/2D/diffusion-reaction', 'diffre2d', ''],
               ]
   valid_data_paths: [
-              ['~/PDEBench/2D/shallow-water', 'swe', ''],
-              ['~/PDEBench/2D/NS_incom', 'incompNS', ''],
-              ['~/PDEBench/2D/CFD/2D_Train_Rand', compNS, '128'],
-               ['~/PDEBench/2D/CFD/2D_Train_Rand', compNS, '512'],
-              ['~/PDEBench/2D/CFD/2D_Train_Turb', compNS, ''],
-              ['~/PDEBench/2D/diffusion-reaction', 'diffre2d', ''],
+              ['~/PDEBench/data/2D/shallow-water', 'swe', ''],
+              ['~/PDEBench/data/2D/NS_incom', 'incompNS', ''],
+              ['~/PDEBench/data/2D/CFD/2D_Train_Rand', compNS, '128'],
+               ['~/PDEBench/data/2D/CFD/2D_Train_Rand', compNS, '512'],
+              ['~/PDEBench/data/2D/CFD/2D_Train_Turb', compNS, ''],
+              ['~/PDEBench/data/2D/diffusion-reaction', 'diffre2d', ''],
               ]
   append_datasets: [] # List of datasets to append to the input/output projections for finetuning
 
